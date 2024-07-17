@@ -20,7 +20,6 @@ public class Hooks {
 
     @Before
     public void openBrowser() throws Exception {
-        //System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1440,768", "--disable-gpu");
