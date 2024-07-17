@@ -16,96 +16,50 @@ public class LoginPage extends BaseClass {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(name = "email")
+    @FindBy(name = "username")
     @CacheLookup
-    private WebElement emailField;
+    private WebElement usernameField;
 
     @FindBy(name = "password")
     @CacheLookup
     private WebElement passwordField;
 
-    @FindBy(xpath = "//button[@class='btn btn-primary btn-block bt-card__button']")
+    @FindBy(xpath = "//div[@class='login']//input[@type='submit']")
     @CacheLookup
-    private WebElement signInButton;
+    private WebElement loginButton;
 
-    @FindBy(xpath = "//*[contains(@class,'has-error')]")
+    @FindBy(linkText = "Register")
     @CacheLookup
-    private WebElement errorMessageLabel;
+    private WebElement registerButton;
 
-    @FindBy(xpath = "//a[@href='/forgetpassword']")
-    @CacheLookup
-    private WebElement forgotPasswordLink;
-
-    @FindBy(xpath = "//a[@href='/loginWithGoogle']")
-    @CacheLookup
-    private WebElement signInGoogleButton;
-
-    @FindBy(xpath = "//a[@href='/loginWithFacebook']")
-    @CacheLookup
-    private WebElement signInFacebookButton;
-
-    @FindBy(xpath = "//a[@href='/register']")
-    @CacheLookup
-    private WebElement registerLink;
-
-    @FindBy(xpath = "//h1[text()='Sign In']")
-    @CacheLookup
-    private WebElement signInTitle;
-
-    @FindBy(className = "navbar-brand")
-    @CacheLookup
-    private WebElement bhinnekaLogo;
-
-    public void fillEmailData(String email) {
-
-        WaitUntilElementVisible(emailField);
-        emailField.isEnabled();
-        emailField.clear();
-        emailField.sendKeys(email);
+    public  void fillUsername(String username) {
+        WaitUntilElementVisible(usernameField);
+        usernameField.isEnabled();
+        usernameField.clear();
+        usernameField.sendKeys(username);
     }
 
-    public void fillPasswordData(String password) {
-
+    public  void fillPassword(String password) {
         WaitUntilElementVisible(passwordField);
         passwordField.isEnabled();
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
-    public void clickSignInButton() {
-
-        WaitUntilElementVisible(signInButton);
-        signInButton.isEnabled();
-        signInButton.click();
+    public void clickLoginButton() {
+        WaitUntilElementVisible(loginButton);
+        loginButton.isEnabled();
+        loginButton.click();
     }
 
-    public boolean errorMessageIsDisplayed() {
-
-        WaitUntilElementVisible(errorMessageLabel);
-        errorMessageLabel.isDisplayed();
-        return true;
+    public  void clickRegisterButton() {
+        WaitUntilElementVisible(registerButton);
+        registerButton.isEnabled();
+        registerButton.click();
     }
 
-    public boolean loginPageIsDisplayed() {
-
-        WaitUntilElementVisible(bhinnekaLogo);
-        bhinnekaLogo.isDisplayed();
-        WaitUntilElementVisible(signInTitle);
-        signInTitle.isDisplayed();
-        WaitUntilElementVisible(emailField);
-        emailField.isDisplayed();
-        WaitUntilElementVisible(passwordField);
-        passwordField.isDisplayed();
-        WaitUntilElementVisible(signInButton);
-        signInButton.isDisplayed();
-        WaitUntilElementVisible(signInGoogleButton);
-        signInGoogleButton.isDisplayed();
-        WaitUntilElementVisible(signInFacebookButton);
-        signInFacebookButton.isDisplayed();
-        WaitUntilElementVisible(forgotPasswordLink);
-        forgotPasswordLink.isDisplayed();
-        WaitUntilElementVisible(registerLink);
-        registerLink.isDisplayed();
-        return true;
+    public void fillLoginDetails(String username, String password) {
+        fillUsername(username);
+        fillPassword(password);
     }
 }

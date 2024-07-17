@@ -1,9 +1,9 @@
 package StepDefinitions;
 
 import Utilities.PropertiesReader;
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 public class Hooks {
@@ -20,10 +20,10 @@ public class Hooks {
 
     @Before
     public void openBrowser() throws Exception {
-
-        WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--window-size=1440,768", "--disable-gpu");
+        options.addArguments("--window-size=1440,768", "--disable-gpu");
         driver = new ChromeDriver(options);
         PropertiesReader propertiesReader = new PropertiesReader();
         driver.manage().timeouts().implicitlyWait(propertiesReader.getTimeout(), TimeUnit.SECONDS);
@@ -35,11 +35,11 @@ public class Hooks {
 
     @After
     public void embedScreenshot(Scenario scenario) {
-
         if(scenario.isFailed()) {
             try {
                 byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-                scenario.embed(screenshot, "image/png");
+                String base64Image = Base64.getEncoder().encodeToString(screenshot);
+                scenario.attach(base64Image, "image/png", "screenshot");
             } catch (WebDriverException noSupportScreenshot) {
                 System.err.println(noSupportScreenshot.getMessage());
             }

@@ -16,65 +16,25 @@ public class HomePage extends BaseClass {
         PageFactory.initElements(driver, this);
     }
 
-    private final String headerMainMenu = "//div[@class='row main-menu-merchant']";
-    private final String cartMenu = "//div[@class='navbar-cart']//a[@href='/cart']";
-
-    @FindBy(xpath = headerMainMenu + "//div[@class='navbar-header']//a[@class='navbar-logo']")
+    @FindBy(name = "username")
     @CacheLookup
-    private WebElement logoButton;
+    private WebElement userNameInput;
 
-    @FindBy(xpath = headerMainMenu + "//input[@type='search']")
+    @FindBy(name = "password")
     @CacheLookup
-    private WebElement searchInput;
+    private WebElement passwordInput;
 
-    @FindBy(xpath = headerMainMenu + "//div[@class='navbar-login']//a[@href='/login']")
+    @FindBy(xpath = "//input[@class='button']")
     @CacheLookup
     private WebElement loginButton;
 
-    @FindBy(xpath = headerMainMenu + cartMenu)
-    @CacheLookup
-    private WebElement cartButton;
-
-    @FindBy(className = "bt-chat__button")
-    @CacheLookup
-    private WebElement openChatButton;
-
-    @FindBy(xpath = headerMainMenu + "//a[@class='dropdown-toggle']")
-    @CacheLookup
-    private WebElement accountButton;
-
-    @FindBy(xpath = cartMenu + "//span[@class='bt-navbar__badge']")
-    @CacheLookup
-    private WebElement cartWithBadge;
-
     public boolean homePageIsDisplayed() {
-
-        WaitUntilElementVisible(logoButton);
-        logoButton.isDisplayed();
-        WaitUntilElementVisible(searchInput);
-        searchInput.isDisplayed();
+        WaitUntilElementVisible(userNameInput);
+        userNameInput.isDisplayed();
+        WaitUntilElementVisible(passwordInput);
+        passwordInput.isDisplayed();
         WaitUntilElementVisible(loginButton);
         loginButton.isDisplayed();
-        WaitUntilElementVisible(cartButton);
-        cartButton.isDisplayed();
-        WaitUntilElementVisible(openChatButton);
-        openChatButton.isDisplayed();
-        return true;
-    }
-
-    public void clickLoginButton() {
-
-        WaitUntilElementVisible(loginButton);
-        loginButton.isEnabled();
-        loginButton.click();
-    }
-
-    public boolean homePageAfterLoginIsDisplayed() {
-
-        WaitUntilElementVisible(accountButton);
-        accountButton.isDisplayed();
-        WaitUntilElementVisible(cartWithBadge);
-        cartWithBadge.isDisplayed();
         return true;
     }
 }
